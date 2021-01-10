@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "617029984546",
+    "project_id": "flutter-rellenitosdelivery",
+    "storage_bucket": "flutter-rellenitosdelivery.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617029984546:android:c6aad7682d1321e1c0c57b",
+        "android_client_info": {
+          "package_name": "com.hexamotion.rellenitosdeliveryapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "617029984546-6gocltouqgigqikt9mn0g3kceg4003qo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hexamotion.rellenitosdeliveryapp",
+            "certificate_hash": "e23c891cac4fd7de78c294f23ff8b4aaebeb0214"
+          }
+        },
+        {
+          "client_id": "617029984546-iodg3p4pllkq97msfop5j4gg5gpcmkn4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCmonvRg91ABEDN55BRGf_9e4LIoffWBk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "617029984546-iodg3p4pllkq97msfop5j4gg5gpcmkn4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
