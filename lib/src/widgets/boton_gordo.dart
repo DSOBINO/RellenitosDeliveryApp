@@ -1,39 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:rellenitos_delivery/src/models/producto_model.dart';
+import 'package:rellenitos_delivery/src/services/products_service.dart';
 
 class BotonGordo extends StatelessWidget {
-  final IconData icon;
   @required
-  final String texto;
-  final String fotoProducto;
-  final Color color1;
-  final Color color2;
-  @required
+  final String idProducto;
   final Function onPress;
 
-  const BotonGordo(
-      {this.icon = FontAwesomeIcons.circle,
-      this.texto,
-      this.fotoProducto,
-      this.color1 = Colors.grey,
-      this.color2 = Colors.blueGrey,
-      this.onPress});
+  const BotonGordo({this.idProducto, this.onPress});
 
   @override
   Widget build(BuildContext context) {
+    final productsService = Provider.of<ProductsService>(context, listen: true);
+
+    ProductoModel productoFicha = productsService.mtdBuscarProducto(idProducto);
+
     return GestureDetector(
       onTap: this.onPress,
       child: Stack(
         children: <Widget>[
-          _BotonProductoBackground(this.fotoProducto),
+          _BotonProductoBackground(productoFicha.foto1),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(height: 100, width: 40),
-              FaIcon(this.icon, color: Colors.white, size: 40),
               SizedBox(width: 20),
               Expanded(
-                  child: Text(this.texto,
+                  child: Text(productoFicha.titulo,
                       style: TextStyle(color: Colors.white, fontSize: 18))),
               FaIcon(FontAwesomeIcons.chevronRight, color: Colors.white),
               SizedBox(width: 40),

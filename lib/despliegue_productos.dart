@@ -2,21 +2,17 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:rellenitos_delivery/src/helpers/detalles_producto_helper.dart';
 import 'package:rellenitos_delivery/src/models/producto_model.dart';
-import 'package:rellenitos_delivery/src/providers/productos_provider.dart';
+import 'package:rellenitos_delivery/src/services/products_service.dart';
 import 'package:rellenitos_delivery/src/widgets/boton_gordo.dart';
 import 'package:animate_do/animate_do.dart';
 
 class DespliegueProductos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(
-      children: <Widget>[
-        _MainScroll(),
-        Positioned(bottom: -10, right: 0, child: _BotonNewList())
-      ],
-    ));
+    return Scaffold(body: _MainScroll());
   }
 }
 
@@ -47,80 +43,56 @@ class _BotonNewList extends StatelessWidget {
 }
 
 class _MainScroll extends StatelessWidget {
-  final productosProvider = new ProductosProvider();
-
   @override
   Widget build(BuildContext context) {
+    final productsService =
+        Provider.of<ProductsService>(context, listen: false);
+
+    //productsService.loadProducts();
+
     return FutureBuilder<List<ProductoModel>>(
-      future: productosProvider
+      future: productsService
           .loadProducts(), // this is a code smell. Make sure that the future is NOT recreated when build is called. Create the future in initState instead.
       builder:
           (BuildContext context, AsyncSnapshot<List<ProductoModel>> snapshot) {
-        Widget newsListSliver;
-        if (snapshot.hasData) {
-          final listaProductos = snapshot.data;
-          newsListSliver = SliverList(
-            delegate: SliverChildListDelegate(
-                List.generate(listaProductos.length, (idx) {
-              return _crearBotonProducto(listaProductos[idx]);
-            })),
-          );
-        } else {
-          newsListSliver = SliverToBoxAdapter(
-            child: CircularProgressIndicator(),
-          );
-        }
+        List<Widget> despliegueProductos;
 
-        return CustomScrollView(
-          slivers: <Widget>[
-            SliverPersistentHeader(
-                floating: true,
-                delegate:
-                    _SliverCustomHeaderDelegate(minheight: 170, maxheight: 300
-/*                    
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      color: Colors.white,
-                      child: _Titulo(),
-                    )
-*/
-                        )),
-            newsListSliver
-          ],
-        );
-      },
-    );
-  }
-/*
-  Widget _createProductDisplay() {
-    return FutureBuilder(
-      future: productosProvider.loadProducts(),
-      builder:
-          (BuildContext context, AsyncSnapshot<List<ProductoModel>> snapshot) {
         if (snapshot.hasData) {
           final listaProductos = snapshot.data;
 
-          return ListView.builder(
-            itemCount: listaProductos.length,
-            itemBuilder: (context, i) => _crearBotonProducto(listaProductos[i]),
-          );
+          despliegueProductos = <Widget>[
+            CustomScrollView(
+              slivers: <Widget>[
+                SliverPersistentHeader(
+                    floating: true,
+                    delegate: _SliverCustomHeaderDelegate(
+                        minheight: 170, maxheight: 300)),
+                SliverList(
+                  delegate: SliverChildListDelegate(
+                      List.generate(listaProductos.length, (idx) {
+                    return _crearBotonProducto(context, listaProductos[idx]);
+                  })),
+                )
+              ],
+            ),
+            Positioned(bottom: -10, right: 0, child: _BotonNewList())
+          ];
         } else {
-          return Center(child: CircularProgressIndicator());
+          despliegueProductos = <Widget>[
+            Center(child: CircularProgressIndicator())
+          ];
         }
+
+        return Stack(children: despliegueProductos);
       },
     );
   }
-*/
 
-  Widget _crearBotonProducto(ProductoModel producto) {
+  Widget _crearBotonProducto(BuildContext context, ProductoModel producto) {
     return BotonGordo(
-      icon: FontAwesomeIcons.plus,
-      texto: producto.titulo,
-      fotoProducto: producto.foto1,
-      color1: Color(0xff317183),
-      color2: Color(0xff46997D),
+      idProducto: producto.idProducto,
       onPress: () {
-        print('Click sobre botón ${producto.titulo}.');
+        DetallesProductoHelper.exit(context, producto.idProducto);
       },
     );
   }
