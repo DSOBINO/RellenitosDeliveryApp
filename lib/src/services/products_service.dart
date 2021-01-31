@@ -29,8 +29,7 @@ class ProductsService with ChangeNotifier {
     notifyListeners();
   }
 
-  final String _url =
-      'https://rellenitos-delivery-backend.herokuapp.com/loader';
+  final String _url = 'https://rellenitos-delivery-app.herokuapp.com/loader';
 
   Future<List<ProductoModel>> loadProducts() async {
     final resp = await postRequest();
@@ -99,12 +98,14 @@ class ProductsService with ChangeNotifier {
         case 1:
           detalleListResponse = productoSeleccionado.detalleBase;
           break;
+/*          
         case 2:
           detalleListResponse = productoSeleccionado.detalleAgregado;
           break;
         case 3:
           detalleListResponse = productoSeleccionado.detalleExtras;
           break;
+*/
       }
     }
 

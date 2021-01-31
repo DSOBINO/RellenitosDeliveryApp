@@ -14,14 +14,72 @@ class BotonDetalle extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {},
-      child: Row(
-        children: [
-          Text(detalle.cantidadNumero.toString()),
-          SizedBox(width: 20, height: 20),
-          Text(detalle.titulo),
-          SizedBox(width: 20, height: 20),
-          imagenDetalle(detalle.foto1)
-        ],
+      child: Container(
+        height: 40,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          /*
+          image: const DecorationImage(
+            image: NetworkImage(
+                'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'),
+            fit: BoxFit.cover,
+          ),
+          */
+          border: Border.all(
+            color: Colors.grey,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Row(
+          children: [
+            SizedBox(width: 5, height: 5),
+            ConstrainedBox(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(detalle.cantidadNumero.toString(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.amberAccent)),
+                  ]),
+              constraints: BoxConstraints(
+                minWidth: 20,
+                maxWidth: 30,
+              ),
+            ),
+            SizedBox(width: 2, height: 5),
+            ConstrainedBox(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text("x",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            color: Colors.grey)),
+                  ]),
+              constraints: BoxConstraints(
+                minWidth: 20,
+                maxWidth: 30,
+              ),
+            ),
+            SizedBox(width: 2, height: 5),
+            Expanded(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(detalle.titulo),
+                  ]),
+            ),
+            SizedBox(width: 5, height: 5),
+            imagenDetalle(detalle.foto1)
+          ],
+        ),
       ),
     );
   }
@@ -39,8 +97,8 @@ class BotonDetalle extends StatelessWidget {
           children: <Widget>[Image.network(p_Foto, fit: BoxFit.cover)],
         ),
       ),
-      width: 20,
-      height: 20,
+      width: 40,
+      height: 40,
       margin: EdgeInsets.fromLTRB(2, 2, 2, 0),
 
 /*

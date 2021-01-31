@@ -25,8 +25,10 @@ class ProductoModel {
     this.fechaInicio,
     this.fechaTermino,
     this.detalleBase,
+    /*
     this.detalleAgregado,
     this.detalleExtras,
+    */
   });
 
   String idProducto;
@@ -43,9 +45,10 @@ class ProductoModel {
   String fechaInicio;
   String fechaTermino;
   List<Detalle> detalleBase;
+/*
   List<Detalle> detalleAgregado;
   List<Detalle> detalleExtras;
-
+*/
   factory ProductoModel.fromJson(Map<String, dynamic> json) => ProductoModel(
         idProducto: json["ID_Producto"],
         flagActivadoNumero: json["Flag_Activado_Numero"],
@@ -62,10 +65,12 @@ class ProductoModel {
         fechaTermino: json["Fecha_Termino"],
         detalleBase: List<Detalle>.from(
             json["Detalle_Base"].map((x) => Detalle.fromJson(x))),
+/*
         detalleAgregado: List<Detalle>.from(
             json["Detalle_Agregado"].map((x) => Detalle.fromJson(x))),
         detalleExtras: List<Detalle>.from(
             json["Detalle_Extras"].map((x) => Detalle.fromJson(x))),
+*/
       );
 
   Map<String, dynamic> toJson() => {
@@ -83,10 +88,12 @@ class ProductoModel {
         "Fecha_Inicio": fechaInicio,
         "Fecha_Termino": fechaTermino,
         "Detalle_Base": List<dynamic>.from(detalleBase.map((x) => x.toJson())),
+/*        
         "Detalle_Agregado":
             List<dynamic>.from(detalleAgregado.map((x) => x.toJson())),
         "Detalle_Extras":
             List<dynamic>.from(detalleExtras.map((x) => x.toJson())),
+*/
       };
 }
 

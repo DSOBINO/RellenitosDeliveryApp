@@ -24,8 +24,9 @@ class DetallesProductoItemes extends StatelessWidget {
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemCount: listaDetalles.length,
-              itemBuilder: (context, i) =>
-                  Container(child: BotonDetalle(detalle: listaDetalles[i]))
+              itemBuilder: (context, i) => Container(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+                  child: BotonDetalle(detalle: listaDetalles[i]))
 //                  Text(listaDetalles[i].titulo)
               );
         } else {

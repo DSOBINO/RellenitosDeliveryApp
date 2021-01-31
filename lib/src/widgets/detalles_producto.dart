@@ -23,8 +23,8 @@ class DetallesProducto extends StatelessWidget {
     final productsService = Provider.of<ProductsService>(context, listen: true);
 
     ProductoModel productoFicha = productsService.mtdBuscarProducto(idProducto);
-
     int cantidadDetalles = 0;
+    double fieldSpaceHeight = 0;
 
     if (productsService.existProductList) {
       cantidadDetalles = productoFicha.detalleBase.length;
@@ -44,34 +44,50 @@ class DetallesProducto extends StatelessWidget {
             width: 200.0,
             fit: BoxFit.cover,
           ),
+          Container(
+              padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+              child: Column(children: <Widget>[
+                Row(children: <Widget>[
+                  Expanded(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                        Text(productoFicha.titulo),
+                        SizedBox(height: fieldSpaceHeight),
+                        Text(productoFicha.subTitulo1),
+                      ])),
+                ]),
+                SizedBox(width: fieldSpaceHeight, height: fieldSpaceHeight),
+                DetallesProductoItemes(idProducto: idProducto),
+                SizedBox(width: fieldSpaceHeight, height: fieldSpaceHeight),
+                Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('No'),
+                  ),
+                  SizedBox(width: 8, height: 8),
+                  RaisedButton(
+                      onPressed: () {},
+                      child: Text('Yes'),
+                      color: Colors.white,
+                      textColor: Colors.redAccent)
+                ])
+              ])),
 
-          // Image(
-          //   image: NetworkImage('https://static.photocdn.pt/images/articles/2017_1/iStock-545347988.jpg'),
-          // ),
+          /*
           Container(
               padding: EdgeInsets.all(10.0),
               child: Column(
                 children: <Widget>[
-                  Text(productoFicha.titulo),
+                  
                   Text('Cantidad detalles : ${cantidadDetalles.toString()}'),
-                  SizedBox(width: 20, height: 20),
-                  DetallesProductoItemes(idProducto: idProducto),
-                  Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                    FlatButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Text('No'),
-                    ),
-                    SizedBox(width: 8),
-                    RaisedButton(
-                        onPressed: () {},
-                        child: Text('Yes'),
-                        color: Colors.white,
-                        textColor: Colors.redAccent)
-                  ])
+                  
                 ],
               ))
+
+        */
         ],
       ),
     );
